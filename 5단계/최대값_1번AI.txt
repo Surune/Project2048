@@ -1,0 +1,53 @@
+void ai()
+{
+	 Sleep(500);									// 0.5초 딜레이
+	 srand((unsigned)time(NULL));					// 난수 생성을 위한 코드 
+	
+	 int direc=0;
+     int temp=0;
+     
+     for(int j=0; j<4; j++)
+     {
+          switch(temp)						
+          {
+        	 case 0 :	dir='W';	break;
+             case 1 :	dir='S';	break;
+             case 2 :	dir='D';	break;
+             case 3 :	dir='A';	break;
+          }	
+             
+          if(confirm()==0)
+          {
+               if(player[4][5]==0)	                // 찬스를 다 썼다면 
+         	   {
+                   player[4][0]='A';
+                   player[4][1]=' ';
+                   player[4][2]='I';               // 이름 변경 
+                    
+                   ending();                       // 게임 종료 
+               }
+               else 	dir='C';
+          }
+          move();
+          temp++;
+             
+          if(player[4][3]>player[3][3])          // 만약 점수가 올랐다면 
+          {
+              for (int i = 0; i < SIZE; i++)
+	          {
+         	      for (int j = 0; j < SIZE; j++)	
+        		  {
+                      field[4][i][j]=copyf[i][j];			// 배열 옮겨 담기 
+                  }
+              }
+              
+              direc=dir;
+          }
+	}
+	
+    move();
+    ORIGINAL printf("\n");
+	print_field();       					        // 계산된 값 출력
+    player[4][3]=player[3][3];
+	ai();
+}

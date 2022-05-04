@@ -1,0 +1,565 @@
+void ai()
+{
+	int temp_score=new_player.score[4];
+	int i, j, x, y, z;
+	int pushto[3]={0, 0, 0};	
+	
+	for (i = 0; i < SIZE; i++)
+		for (j = 0; j < SIZE; j++)
+			copy[i][j] = new_player.field[4][i][j];	// temp 배열에 복사 
+
+	for(x=0; i<3; i++)
+	{
+		for(y=0; j<4; j++)
+		{
+			pushto[x]=y;
+			
+			switch (pushto[0])						// 한번 움직이면 
+			{
+				case 0:								// 왼쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+						if (copy[i][j] == copy[i][j + 1])		// 좌우로 값이 같으면
+						{
+							copy[i][j] += copy[i][j + 1];		// 왼쪽칸에 오른쪽칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 1:								// 오른쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+						if (copy[i][j] == copy[i][j - 1])	// 좌우로 값이 같으면
+						{
+							copy[i][j] += copy[i][j - 1];	// 오른쪽칸에 왼쪽칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 2:								// 위쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+						if (copy[i][j] == copy[i + 1][j])		// 상하로 값이 같으면
+						{
+							copy[i][j] += copy[i + 1][j];		// 윗칸에 아랫칸의 값을 더하고
+							new_player.score[4] += copy[i][j];	// 점수 추가
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 3:								// 아래로 움직이는 경우
+
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{	
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+						if (copy[i][j] == copy[i - 1][j])		// 상하로 값이 같으면
+						{
+							copy[i][j] += copy[i - 1][j];		// 아랫칸에 윗칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				break;
+			}
+			switch (pushto[1])						// 두번 움직이면 
+			{
+				case 0:								// 왼쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+						if (copy[i][j] == copy[i][j + 1])		// 좌우로 값이 같으면
+						{
+							copy[i][j] += copy[i][j + 1];		// 왼쪽칸에 오른쪽칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 1:								// 오른쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+						if (copy[i][j] == copy[i][j - 1])	// 좌우로 값이 같으면
+						{
+							copy[i][j] += copy[i][j - 1];	// 오른쪽칸에 왼쪽칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 2:								// 위쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+						if (copy[i][j] == copy[i + 1][j])		// 상하로 값이 같으면
+						{
+							copy[i][j] += copy[i + 1][j];		// 윗칸에 아랫칸의 값을 더하고
+							new_player.score[4] += copy[i][j];	// 점수 추가
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 3:								// 아래로 움직이는 경우
+
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{	
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+						if (copy[i][j] == copy[i - 1][j])		// 상하로 값이 같으면
+						{
+							copy[i][j] += copy[i - 1][j];		// 아랫칸에 윗칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				break;
+			}
+			switch (pushto[2])						// 세번 움직이면 
+			{
+				case 0:								// 왼쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j + 1];		// 오른쪽칸의 값을 빈칸에 넣고
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+						if (copy[i][j] == copy[i][j + 1])		// 좌우로 값이 같으면
+						{
+							copy[i][j] += copy[i][j + 1];		// 왼쪽칸에 오른쪽칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i][j + 1] = 0;					// 오른쪽칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 1:								// 오른쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = SIZE - 2; j > 0; j--)
+					{
+						if (copy[i][j] == 0)				// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i][j - 1];	// 왼쪽칸의 값을 빈칸에 넣고
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+						if (copy[i][j] == copy[i][j - 1])	// 좌우로 값이 같으면
+						{
+							copy[i][j] += copy[i][j - 1];	// 오른쪽칸에 왼쪽칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i][j - 1] = 0;				// 왼쪽칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 2:								// 위쪽으로 움직이는 경우
+				
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				for (i = 1; i < SIZE - 1; i++)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i + 1][j];		// 아랫칸의 값을 빈칸에 넣고
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+						if (copy[i][j] == copy[i + 1][j])		// 상하로 값이 같으면
+						{
+							copy[i][j] += copy[i + 1][j];		// 윗칸에 아랫칸의 값을 더하고
+							new_player.score[4] += copy[i][j];	// 점수 추가
+							copy[i + 1][j] = 0;					// 아랫칸을 비운다
+						}
+					}
+				}
+				break;
+
+				case 3:								// 아래로 움직이는 경우
+
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{	
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				for (i = SIZE - 2; i > 0; i--)
+				{
+					for (j = 1; j < SIZE - 1; j++)
+					{
+						if (copy[i][j] == 0)					// 빈칸이 있으면
+						{
+							copy[i][j] = copy[i - 1][j];		// 윗칸의 값을 빈칸에 넣고
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+						if (copy[i][j] == copy[i - 1][j])		// 상하로 값이 같으면
+						{
+							copy[i][j] += copy[i - 1][j];		// 아랫칸에 윗칸의 값을 더하고
+							new_player.score[4] += copy[i][j];			// 점수 추가
+							copy[i - 1][j] = 0;					// 윗칸을 비운다
+						}
+					}
+				}
+				break;
+			}
+		
+		if(check()==0)								// 찬스를 입력받은 경우
+		{
+			print_head();
+			if(new_player.chance>0)						// 찬스가 남았다면 
+			{
+				PURPLE printf("        CHANCE : 남은 횟수 %d회", new_player.chance-1);
+				ORIGINAL printf("\n");
+				chance();							// 찬스 사용 
+			}
+			else									// 찬스를 다 사용했다면 
+			{
+				PURPLE printf("      CHANCE를 다 사용하셨습니다.");
+				ORIGINAL printf("\n");
+			}
+			print_field();       					// 계산된 값 출력
+			break;
+		}
+			
+		}
+	}
+	Sleep(500);										// 0.5초 딜레이
+    move();
+    ORIGINAL printf("\n");
+	print_field();       					        // 계산된 값 출력
+	ai();
+}
